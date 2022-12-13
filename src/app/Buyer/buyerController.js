@@ -1,6 +1,6 @@
 const jwtMiddleware = require("../../../config/jwtMiddleware");
-const userProvider = require("../../app/User/userProvider");
-const userService = require("../../app/User/userService");
+const buyerProvider = require("./buyerProvider");
+const buyerService = require("./buyerService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 
@@ -147,11 +147,7 @@ exports.patchUsers = async function (req, res) {
  */
 exports.getBuyers = async function (req, res) {
 
-    /**
-     * Path Variable: userId
-     */
-
-    const wholeBuyer = await userProvider.retrieveBuyer();
+    const wholeBuyer = await buyerProvider.retrieveBuyer();
     return res.send(response(baseResponse.SUCCESS, wholeBuyer));
 };
 

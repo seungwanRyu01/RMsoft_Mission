@@ -1,7 +1,7 @@
 const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 
-const userDao = require("./userDao");
+const buyerDao = require("./buyerDao");
 
 // Provider: Read 비즈니스 로직 처리
 
@@ -59,7 +59,7 @@ exports.accountCheck = async function (email) {
 
 exports.retrieveBuyer = async function () {
   const connection = await pool.getConnection(async (conn) => conn);
-  const retrieveBuyerResult = await userDao.selectBuyer(connection);
+  const retrieveBuyerResult = await buyerDao.selectBuyer(connection);
   connection.release();
 
   return retrieveBuyerResult;

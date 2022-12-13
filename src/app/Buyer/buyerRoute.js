@@ -1,5 +1,5 @@
 module.exports = function(app){
-    const user = require('./userController');
+    const buyer = require('./buyerController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
 
     // 0. 테스트 API
@@ -24,7 +24,7 @@ module.exports = function(app){
 
 
     // 8. 구매자 조회 API
-    app.get('/app/buyers', user.getBuyers);
+    app.get('/app/buyers', buyer.getBuyers);
 
 };
 
