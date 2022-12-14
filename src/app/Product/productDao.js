@@ -19,13 +19,13 @@ async function insertProduct(connection, companyIdx, productName, price) {
 }
 
 // 상품 정보 변경
-async function updateProduct(connection, companyIdx, productName, price) {
+async function updateProduct(connection, companyIdx, productName, price, productIdx) {
     const updateProductQuery = `
                         UPDATE product
                         SET companyIdx = ?, productName = ?, price = ?
                         WHERE productIdx = ?;
                     `;
-    const [updateProductRow] = await connection.query(updateProductQuery, [companyIdx, productName, price]);
+    const [updateProductRow] = await connection.query(updateProductQuery, [companyIdx, productName, price, productIdx]);
     return updateProductRow;
 }
 

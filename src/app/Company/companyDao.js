@@ -9,13 +9,13 @@ async function insertCompany(connection, companyName, ceoName, companyNum) {
 }
 
 // 등록업체 변경
-async function updateCompany(connection, companyName, ceoName, companyNum) {
+async function updateCompany(connection, companyName, ceoName, companyNum, companyIdx) {
     const updateCompanyQuery = `
                         UPDATE company
                         SET companyName = ?, ceoName = ?, companyNum = ?
-                        WHERE buyerIdx = ?;
+                        WHERE companyIdx = ?;
                     `;
-    const [updateCompanyRow] = await connection.query(updateCompanyQuery, [companyName, ceoName, companyNum]);
+    const [updateCompanyRow] = await connection.query(updateCompanyQuery, [companyName, ceoName, companyNum, companyIdx]);
     return updateCompanyRow;
 }
 
