@@ -49,3 +49,61 @@ exports.getBuyInfo = async function (req, res) {
         return res.send(response(baseResponse.SUCCESS, [elementBuyInfoResult, elementSumPriceResult]));
     }
 };
+
+
+/**
+ * API Test
+ * API Name : 구매자 생성 API
+ * [POST] /app/buyers
+ */
+exports.postBuyers = async function (req, res) {
+
+    const { buyerName, buyerNum } = req.body;
+    const postBuyerResponse = await buyerService.createBuyers( buyerName, buyerNum );
+    return res.send(postBuyerResponse)
+}
+
+
+/**
+ * API Test
+ * API Name : 구매자 변경 API
+ * [PATCH] /app/buyers/{buyerIdx}
+ */
+exports.updateBuyers = async function (req, res) {
+    /**
+     * Path Parameter : buyerIdx
+     */
+    const buyerIdx = req.params.buyerIdx;
+    const { buyerName, buyerNum } = req.body;
+    const updateBuyerResponse = await buyerService.editBuyers( buyerName, buyerNum, buyerIdx );
+    return res.send(updateBuyerResponse)
+}
+
+
+/**
+ * API Test
+ * API Name : 구매정보 생성 API
+ * [POST] /app/buyinfo
+ */
+exports.postBuyInfo = async function (req, res) {
+
+    const { productIdx, buyerIdx, buyInfoNumber } = req.body;
+    const postBuyInfoResponse = await buyerService.createBuyInfo( productIdx, buyerIdx, buyInfoNumber );
+    return res.send(postBuyInfoResponse)
+}
+
+
+/**
+ * API Test
+ * API Name : 구매정보 수정 API
+ * [PATCH] /app/buyinfo/{buyInfoIdx}
+ */
+exports.updateBuyInfo = async function (req, res) {
+    /**
+     * Path Parameter : buyInfoIdx
+     */
+    const buyInfoIdx = req.params.buyInfoIdx;
+    const { productIdx, buyerIdx, buyInfoNumber } = req.body;
+    const updateBuyInfoResponse = await buyerService.editBuyInfo( productIdx, buyerIdx, buyInfoNumber, buyInfoIdx );
+    return res.send(updateBuyInfoResponse)
+}

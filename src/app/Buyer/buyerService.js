@@ -11,96 +11,62 @@ const {connect} = require("http2");
 
 
 // 구매자 생성
-exports.createBuyers = async function (email, password, nickname) {
+exports.createBuyers = async function (buyerName, buyerNum) {
     try {
-        // 이메일 중복 확인
-        const emailRows = await userProvider.emailCheck(email);
-        if (emailRows.length > 0)
-            return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
-
-        // 비밀번호 암호화
-        const hashedPassword = await crypto
-            .createHash("sha512")
-            .update(password)
-            .digest("hex");
-
-        const insertUserInfoParams = [email, hashedPassword, nickname];
-
         const connection = await pool.getConnection(async (conn) => conn);
-
-        const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
-        console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
+        const buyerResult = await buyerDao.insertBuyer(connection, buyerName, buyerNum);
+        const buyerIdx = buyerResult.insertId;
+        const result = { buyerName, buyerNum, buyerIdx }
         connection.release();
-        return response(baseResponse.SUCCESS);
-
-
+        return response(baseResponse.SUCCESS, result);
     } catch (err) {
-        logger.error(`App - createUser Service error\n: ${err.message}`);
+        logger.error(`App - createBuyers Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 };
 
 
 // 구매자 변경
-exports.editUser = async function (id, nickname) {
+exports.editBuyers = async function (buyerName, buyerNum, buyerIdx) {
     try {
-        console.log(id)
         const connection = await pool.getConnection(async (conn) => conn);
-        const editUserResult = await userDao.updateUserInfo(connection, id, nickname)
+        const editBuyersResult = await buyerDao.updateBuyer(connection, buyerName, buyerNum, buyerIdx)
+        const result = { buyerName, buyerNum, buyerIdx }
         connection.release();
-
-        return response(baseResponse.SUCCESS);
-
+        return response(baseResponse.SUCCESS, result);
     } catch (err) {
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - editBuyers Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
 
 
 // 구매정보 생성
-exports.createBuyers = async function (email, password, nickname) {
+exports.createBuyInfo = async function (productIdx, buyerIdx, buyInfoNumber) {
     try {
-        // 이메일 중복 확인
-        const emailRows = await userProvider.emailCheck(email);
-        if (emailRows.length > 0)
-            return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
-
-        // 비밀번호 암호화
-        const hashedPassword = await crypto
-            .createHash("sha512")
-            .update(password)
-            .digest("hex");
-
-        const insertUserInfoParams = [email, hashedPassword, nickname];
-
         const connection = await pool.getConnection(async (conn) => conn);
-
-        const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
-        console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
+        const createBuyInfoResult = await buyerDao.insertBuyInfo(connection, productIdx, buyerIdx, buyInfoNumber);
+        const buyInfoIdx = createBuyInfoResult.insertId;
+        const result = { productIdx, buyerIdx, buyInfoNumber, buyInfoIdx }
         connection.release();
-        return response(baseResponse.SUCCESS);
-
-
+        return response(baseResponse.SUCCESS, result);
     } catch (err) {
-        logger.error(`App - createUser Service error\n: ${err.message}`);
+        logger.error(`App - createBuyInfo Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 };
 
 
 // 구매정보 변경
-exports.editUser = async function (id, nickname) {
+exports.editBuyInfo = async function (productIdx, buyerIdx, buyInfoNumber, buyInfoIdx) {
     try {
-        console.log(id)
         const connection = await pool.getConnection(async (conn) => conn);
-        const editUserResult = await userDao.updateUserInfo(connection, id, nickname)
+        const editBuyInfoResult = await buyerDao.updateBuyInfo(connection, productIdx, buyerIdx, buyInfoNumber, buyInfoIdx)
+        const result = { productIdx, buyerIdx, buyInfoNumber, buyInfoIdx }
         connection.release();
-
-        return response(baseResponse.SUCCESS);
-
+        return response(baseResponse.SUCCESS, result);
     } catch (err) {
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - editBuyInfo Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
