@@ -5,62 +5,34 @@ const buyerDao = require("./buyerDao");
 
 // Provider: Read 비즈니스 로직 처리
 
-exports.retrieveUserList = async function (email) {
-  if (!email) {
-    const connection = await pool.getConnection(async (conn) => conn);
-    const userListResult = await userDao.selectUser(connection);
-    connection.release();
-
-    return userListResult;
-
-  } else {
-    const connection = await pool.getConnection(async (conn) => conn);
-    const userListResult = await userDao.selectUserEmail(connection, email);
-    connection.release();
-
-    return userListResult;
-  }
-};
-
-exports.retrieveUser = async function (userId) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  const userResult = await userDao.selectUserId(connection, userId);
-
-  connection.release();
-
-  return userResult[0];
-};
-
-exports.emailCheck = async function (email) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  const emailCheckResult = await userDao.selectUserEmail(connection, email);
-  connection.release();
-
-  return emailCheckResult;
-};
-
-exports.passwordCheck = async function (selectUserPasswordParams) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  const passwordCheckResult = await userDao.selectUserPassword(
-      connection,
-      selectUserPasswordParams
-  );
-  connection.release();
-  return passwordCheckResult[0];
-};
-
-exports.accountCheck = async function (email) {
-  const connection = await pool.getConnection(async (conn) => conn);
-  const userAccountResult = await userDao.selectUserAccount(connection, email);
-  connection.release();
-
-  return userAccountResult;
-};
-
+// 구매자 정보 조회
 exports.retrieveBuyer = async function () {
-  const connection = await pool.getConnection(async (conn) => conn);
-  const retrieveBuyerResult = await buyerDao.selectBuyer(connection);
-  connection.release();
+    const connection = await pool.getConnection(async (conn) => conn);
+    const retrieveBuyerResult = await buyerDao.selectBuyer(connection);
+    connection.release();
+    return retrieveBuyerResult;
+};
 
-  return retrieveBuyerResult;
+// 전체 구매정보 조회
+exports.retrieveBuyInfo = async function () {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const buyInfoResult = await buyerDao.selectBuyInfo(connection);
+    connection.release();
+    return buyInfoResult;
+};
+
+// 구매번호당 구매정보 조회
+exports.getElementBuyInfo = async function (buyInfoNumber) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getElementBuyInfoResult = await buyerDao.selectElementBuyInfo(connection, buyInfoNumber);
+    connection.release();
+    return getElementBuyInfoResult;
+};
+
+// 구매번호당 총 가격, 구매번호 조회
+exports.getElementSumPrice = async function (buyInfoNumber) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const getElementSumPriceResult = await buyerDao.selectElementSumPrice(connection, buyInfoNumber);
+    connection.release();
+    return getElementSumPriceResult;
 };
