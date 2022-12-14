@@ -15,3 +15,32 @@ exports.getCompany = async function (req, res) {
     const wholeCompany = await companyProvider.retrieveCompany();
     return res.send(response(baseResponse.SUCCESS, wholeCompany));
 };
+
+
+/**
+ * API Test
+ * API Name : 등록업체 생성 API
+ * [POST] /app/company
+ */
+exports.postCompany = async function (req, res) {
+
+    const { companyName, ceoName, companyNum } = req.body;
+    const postCompanyResponse = await companyService.createCompany( companyName, ceoName, companyNum );
+    return res.send(postCompanyResponse)
+}
+
+
+/**
+ * API Test
+ * API Name : 등록업체 변경 API
+ * [PATCH] /app/company/{companyIdx}
+ */
+exports.updateCompany = async function (req, res) {
+    /**
+     * Path Parameter : companyIdx
+     */
+    const companyIdx = req.params.companyIdx;
+    const { companyName, ceoName, companyNum } = req.body;
+    const updateCompanyResponse = await companyService.editCompany( companyName, ceoName, companyNum, companyIdx );
+    return res.send(updateCompanyResponse)
+}
