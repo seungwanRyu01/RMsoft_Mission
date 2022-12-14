@@ -2,6 +2,7 @@ const express = require('express');
 const compression = require('compression');
 const methodOverride = require('method-override');
 var cors = require('cors');
+
 module.exports = function () {
     const app = express();
 
@@ -19,8 +20,8 @@ module.exports = function () {
     /* App (Android, iOS) */
     // TODO: 도메인을 추가할 경우 이곳에 Route를 추가하세요.
     require('../src/app/Buyer/buyerRoute')(app);
-    // require('../src/app/Compnay/CompanyRoute')(app);
-    // require('../src/app/Product/ProductRoute')(app);
+    require('../src/app/Company/companyRoute')(app);
+    require('../src/app/Product/productRoute')(app);
 
     return app;
 };
