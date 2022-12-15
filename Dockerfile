@@ -1,6 +1,5 @@
 # BaseImage 지정 - FROM
-# alpine : 최소 단위의 Linux 버전을 말한다.
-FROM node:14-alpine
+FROM node:14
 
 # DockerImage 안에서 사용할 복사해올 경로
 WORKDIR /app
