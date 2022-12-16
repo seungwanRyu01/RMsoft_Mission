@@ -26,6 +26,8 @@
 
   - node와는 pool을 통해서 connection
 
+  - root계정에서 rmsoft_db 생성하고 테이블 작업 진행
+
 - **Docker**
 
   - 프로젝트 배포
