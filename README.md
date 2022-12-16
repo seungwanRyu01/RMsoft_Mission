@@ -8,7 +8,7 @@
 
 ## 2. 사용 Tech & Skill
 
-- Node.js
+- **Node.js**
 
   - 백엔드 런타임 엔진 도구로 사용
 
@@ -18,7 +18,7 @@
 
   - VSCode로 프로젝트 관리 & 배포
 
-- MySQL
+- **MySQL**
 
   - MySQL으로 동적 쿼리 작성
 
@@ -26,7 +26,7 @@
 
   - node와는 pool을 통해서 connection
 
-- Docker
+- **Docker**
 
   - 프로젝트 배포
 
@@ -79,7 +79,7 @@
 └── README.md
 ```
 
-- Data req, res 로직
+- **Data req, res 로직**
 
 ```bash
 > Request(시작) / Response(끝)  ⇄ Router (*Route.js) ⇄ Controller (*Controller.js) ⇄ Service (CUD) / Provider (R) ⇄ DAO (DB)
@@ -109,4 +109,4 @@ $ docker compose up -d
 $ nodemon index.js
 ```
 
-## 7. 프로젝트 API CRUD 명세서 & 결과
+## 7. 프로젝트 API CRUD 테스트 & 결과 명세서
